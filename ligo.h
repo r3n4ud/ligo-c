@@ -23,7 +23,7 @@
 #include <libusb.h>
 
 
-#define LIGO_VERSION "1.0.0"
+#define LIGO_VERSION "1.0.1"
 
 
 /* Vendors and products's ids taken from adb source */
