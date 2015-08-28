@@ -8,6 +8,6 @@ Name: ligo
 Description: ligo android open accessory protocol library
 Version: @LIGO_VERSION@
 
-Requires:
+Requires: libusb-1.0
 Libs: -L${libdir} -L${sharedlibdir} -lligo
 Cflags: -I${includedir}
