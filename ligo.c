@@ -19,7 +19,6 @@
 #include <stdio.h>
 
 #include <unistd.h>
-#include <syslog.h>
 #include <signal.h>
 #include <string.h>
 
@@ -225,9 +224,6 @@ int ligo_get_protocol_version(libusb_device *dev) {
            version */
         rc = libusb_open(dev, &h);
         if (rc == LIBUSB_SUCCESS) {
-          syslog(LOG_DEBUG,
-                 "USB device %04x:%04x is an Android device supporting the accessory mode",
-                 desc.idVendor, desc.idProduct);
 
           unsigned char data[2];
           memset(data, 0, sizeof(data));
@@ -314,17 +310,11 @@ int ligo_write(unsigned char* buffer, unsigned int length, unsigned int timeout)
 int ligo_init() {
   int rc;
 
-  openlog("ligo", LOG_PID|LOG_CONS, LOG_USER);
-  syslog(LOG_INFO, "Starting ligo (Android Open Accessory Protocol)");
-
   rc = libusb_init(NULL);
   if (LIBUSB_SUCCESS != rc) {
-    syslog(LOG_ERR, "Error during libusb init");
     libusb_exit(NULL);
     return EXIT_FAILURE;
   }
-
-
 
   return 0;
 }
@@ -336,7 +326,4 @@ void ligo_exit() {
   libusb_close(iohandle);
 
   libusb_exit(NULL);
-
-  syslog(LOG_INFO, "Stopping ligo");
-  closelog();
 }
