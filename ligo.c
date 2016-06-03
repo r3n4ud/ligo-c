@@ -97,6 +97,8 @@ int builtInVendorIds[] = {
 static uint8_t endpoint_in = 0;
 static uint8_t endpoint_out = 0;
 
+static int ligo_buffer_size = LIGO_DEFAULT_BUFFER_SIZE;
+
 static struct libusb_device_handle *iohandle = NULL;
 
 struct libusb_device_handle * ligo_get_io_handle() {
@@ -126,6 +128,16 @@ uint8_t ligo_get_ep_out() {
 /*******************/
 /* ligo primitives */
 /*******************/
+void ligo_set_buffer_size(int buffer_size) {
+  ligo_buffer_size = buffer_size;
+}
+
+
+int ligo_get_buffer_size() {
+  return ligo_buffer_size;
+}
+
+
 void ligo_init_endpoints(libusb_device *dev) {
   struct libusb_config_descriptor *conf_desc;
   const struct libusb_endpoint_descriptor *endpoint;
@@ -273,7 +285,7 @@ int ligo_read(unsigned char* buffer, unsigned int timeout) {
 
   rc = libusb_bulk_transfer(iohandle, endpoint_in,
                             buffer,
-                            BUFFER_SIZE,
+                            ligo_buffer_size,
                             &transferred,
                             timeout);
 

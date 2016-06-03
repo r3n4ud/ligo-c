@@ -23,7 +23,7 @@
 #include <libusb.h>
 
 
-#define LIGO_VERSION "1.0.2"
+#define LIGO_VERSION "1.1.0"
 
 
 /* Vendors and products's ids taken from adb source */
@@ -150,7 +150,7 @@
 #define VENDOR_ID_ECS           0x03fc
 
 
-#define BUFFER_SIZE 16384
+#define LIGO_DEFAULT_BUFFER_SIZE 16384
 
 
 typedef struct ligo_accessory ligo_accessory;
@@ -191,6 +191,10 @@ struct ligo_accessory {
   } while (0)
 
 struct libusb_device_handle * ligo_get_io_handle();
+
+void ligo_set_buffer_size(int buffer_size);
+
+int  ligo_get_buffer_size();
 
 int ligo_open_and_claim(libusb_device *dev, int interface_number);
 
