@@ -94,10 +94,6 @@ int builtInVendorIds[] = {
 
 #define BUILT_IN_VENDOR_COUNT    (sizeof(builtInVendorIds)/sizeof(builtInVendorIds[0]))
 
-
-int ligo_set_configuration(libusb_device *dev);
-
-
 static uint8_t endpoint_in = 0;
 static uint8_t endpoint_out = 0;
 
